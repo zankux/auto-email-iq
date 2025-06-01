@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auto Email IQ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .logo {
+      font-size: 48px;
+    }
+    h1 {
+      margin: 10px 0 5px 0;
+      font-size: 28px;
+    }
+    .tagline {
+      font-size: 16px;
+      color: #555;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      text-align: left;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 25px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    textarea {
+      margin-top: 20px;
+      height: 220px;
+      font-family: monospace;
+      resize: vertical;
+    }
+    .credit {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-top: 30px;
+    }
+    .credit a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+    .credit a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">📧</div>
+    <h1>Auto Email IQ</h1>
+    <p class="tagline">Predict work emails in seconds.</p>
+  </div>
+
+  <label for="first">First Name</label>
+  <input type="text" id="first" placeholder="First name">
+
+  <label for="last">Last Name</label>
+  <input type="text" id="last" placeholder="Last name">
+
+  <label for="domain">Company Domain</label>
+  <input type="text" id="domain" placeholder="e.g. paypal or paypal.com">
+
+  <button onclick="generateEmails()">Generate Emails</button>
+
+  <textarea id="output" readonly placeholder="Generated email permutations will appear here..."></textarea>
+
+  <div class="credit">
+    🔧 Built by <strong>Cesar Cardona</strong> · 
+    <a href="https://www.linkedin.com/in/cesarcardona1/" target="_blank">LinkedIn</a> · 2024
+  </div>
+
+  <script>
+    function generateEmails() {
+      const first = document.getElementById("first").value.trim().toLowerCase().replace(/\s+/g, '');
+      const last = document.getElementById("last").value.trim().toLowerCase().replace(/\s+/g, '');
+      let domain = document.getElementById("domain").value.trim().toLowerCase().replace(/\s+/g, '');
+      const output = document.getElementById("output");
+
+      if (!first || !last || !domain) {
+        output.value = "⚠️ Please fill in all fields.";
+        return;
+      }
+
+      if (!domain.includes(".")) {
+        domain += ".com";
+      }
+
+      const fi = first.charAt(0);
+      const li = last.charAt(0);
+
+      const emails = [
+        `${first}@${domain}`,
+        `${last}@${domain}`,
+        `${first}.${last}@${domain}`,
+        `${first}${last}@${domain}`,
+        `${fi}${last}@${domain}`,
+        `${first}${li}@${domain}`,
+        `${fi}.${last}@${domain}`,
+        `${fi}${li}@${domain}`,
+        `${last}.${first}@${domain}`,
+        `${first}_${last}@${domain}`,
+        `${first}-${last}@${domain}`,
+        `${last}_${first}@${domain}`
+      ];
+
+      output.value = emails.join("\n");
+    }
+  </script>
+
+</body>
+</html>
